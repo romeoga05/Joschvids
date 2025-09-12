@@ -1,4 +1,4 @@
-# Simple TikTok Scroll
+# Simple Tiok Scroll
 
 This is a beginner-friendly **TikTok-style web app** hosted on GitHub Pages.  
 You can scroll through full-screen videos just like on TikTok.  

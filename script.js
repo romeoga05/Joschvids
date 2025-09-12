@@ -1,5 +1,5 @@
 const videoFeed = document.getElementById("video-feed");
-let unmuted = false; // tk if user allowed sound
+let unmuted = false; // tk  user allowed sound
 
 // Load videos from JSON
 fetch("videos.json")
