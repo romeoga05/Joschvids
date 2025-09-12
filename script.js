@@ -1,16 +1,9 @@
 const videoFeed = document.getElementById("video-feed");
 let unmuted = false;
-let observer; // keep reference to reuse
+let observer;
 let videoFiles = [];
 
-// Example captions
-const captions = [
-  { user: "@alice", text: "Chilling with the vibes ✨" },
-  { user: "@bob", text: "Check out this move 🔥" },
-  { user: "@charlie", text: "Life is better with music 🎶" },
-];
-
-function createVideoContainer(file, i) {
+function createVideoContainer(file) {
   const container = document.createElement("div");
   container.className = "video-container";
 
@@ -22,12 +15,13 @@ function createVideoContainer(file, i) {
   video.controls = false;
   video.autoplay = true;
 
-  // Overlay
+  // ✅ Title = filename without extension
+  const title = file.replace(/\.[^/.]+$/, ""); // removes .mp4 or any extension
+
   const overlay = document.createElement("div");
   overlay.className = "overlay";
   overlay.innerHTML = `
-    <div class="username">${captions[i % captions.length].user}</div>
-    <div class="caption">${captions[i % captions.length].text}</div>
+    <div class="caption">${title}</div>
   `;
 
   // Side buttons
@@ -90,9 +84,7 @@ function createVideoContainer(file, i) {
     lastTap = now;
   });
 
-  // Observe new video
   observer.observe(video);
-
   return container;
 }
 
@@ -101,7 +93,6 @@ fetch("videos.json")
   .then(videos => {
     videoFiles = videos;
 
-    // IntersectionObserver for play/pause
     observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         const vid = entry.target;
@@ -116,15 +107,15 @@ fetch("videos.json")
     // Load initial videos
     for (let i = 0; i < 8; i++) {
       const randomFile = videoFiles[Math.floor(Math.random() * videoFiles.length)];
-      videoFeed.appendChild(createVideoContainer(randomFile, i));
+      videoFeed.appendChild(createVideoContainer(randomFile));
     }
 
-    // Infinite scroll: load more when near bottom
+    // Infinite scroll
     videoFeed.addEventListener("scroll", () => {
       if (videoFeed.scrollTop + videoFeed.clientHeight >= videoFeed.scrollHeight - 10) {
         for (let i = 0; i < 5; i++) {
           const randomFile = videoFiles[Math.floor(Math.random() * videoFiles.length)];
-          videoFeed.appendChild(createVideoContainer(randomFile, i));
+          videoFeed.appendChild(createVideoContainer(randomFile));
         }
       }
     });
