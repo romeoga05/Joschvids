@@ -16,7 +16,7 @@ function createVideoContainer(file) {
   video.autoplay = true;
 
   // ✅ Title = filename without extension
-  const title = file.replace(/\.[^/.]+$/, ""); // removes mp4 or any extension
+  const title = file.replace(/\.[^/.]+$/, ""); // removes .mp4 or any extension
 
   const overlay = document.createElement("div");
   overlay.className = "overlay";
