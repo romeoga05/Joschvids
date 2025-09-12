@@ -1,5 +1,5 @@
 const videoFeed = document.getElementById("video-feed");
-let unmuted = false; // track if user allowed sound
+let unmuted = false; // trak if user allowed sound
 
 // Load videos from JSON
 fetch("videos.json")
