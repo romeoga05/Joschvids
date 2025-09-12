@@ -16,6 +16,15 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Hide scrollbar */
+#video-feed::-webkit-scrollbar {
+  display: none;
+}
+#video-feed {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .video-container {
   height: 100vh;
   width: 100%;
@@ -33,7 +42,7 @@ video {
   display: block;
 }
 
-/* Overlay elements */
+/* Overlay (username + caption) */
 .overlay {
   position: absolute;
   bottom: 60px;
@@ -53,7 +62,7 @@ video {
   line-height: 1.3em;
 }
 
-/* Right side buttons */
+/* Side buttons */
 .side-buttons {
   position: absolute;
   right: 15px;
@@ -63,28 +72,47 @@ video {
   gap: 20px;
   align-items: center;
   color: white;
-  font-size: 24px;
-  text-shadow: 0 0 5px rgba(0,0,0,0.7);
 }
 
-.side-buttons div {
+/* Action buttons */
+.action-btn {
+  font-size: 30px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.2);
+}
+
+.like-count {
+  font-size: 14px;
+  margin-top: 6px;
   text-align: center;
 }
 
-/* Like count */
-.like-count {
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-/* Like animation */
+/* Heart pop effect */
 .heart-anim {
-  transform: scale(1.3);
-  transition: transform 0.2s ease;
+  animation: pop 0.3s ease;
 }
 
-.heart-anim-reset {
-  transform: scale(1);
-  transition: transform 0.2s ease;
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+/* Floating heart (double-tap) */
+.floating-heart {
+  position: absolute;
+  font-size: 60px;
+  color: red;
+  opacity: 0;
+  animation: floatUp 1s ease forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  50% { transform: translateY(-80px) scale(1.2); opacity: 0.8; }
+  100% { transform: translateY(-150px) scale(0.8); opacity: 0; }
 }
